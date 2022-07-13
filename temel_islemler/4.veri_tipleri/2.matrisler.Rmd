@@ -1,0 +1,337 @@
+---
+title: "Matrisler"
+author: "Recep Ilyasoglu"
+date: "15 12 2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# 1.Matris Nedir ?
+
+# 2.Matris Bicimlendirme
+
+## Matris Olusturma
+
+```{r}
+
+#vektorlerden matris olusturma
+
+v1 <- c(3,4,6,8,5)
+v2 <- c(4,8,4,7,1)
+v3 <- c(2,2,5,4,6)
+v4 <- c(4,7,5,2,5)
+
+    #veri seti  #satir sayisi  #sutun sayisi  #satira gore siralama
+matrix(1:9,     nrow = 3,      ncol = 3,     byrow = TRUE)
+
+
+matrix(c(1,2,3,11,22,33), ncol = 2, nrow = 3)
+
+
+matrix(c(1,2,3,11,22,33,111,222,333), 3, 3)
+
+
+```
+
+## Matris Boyutlari ve Frekans Tablosu
+
+```{r}
+
+m <- matrix(c(1,2,3,11,22,33,111,222,333), 3, 3)
+
+# boyutlarini verdi
+dim(m)  
+
+# her degerden kacar tane oldugunu verir
+m <- matrix(rep(1:3, 3), 3,3)
+
+table(m)
+
+```
+
+## Matris Birlestirme
+
+```{r}
+
+MA <- rnorm(16)
+MA <- matrix(MA, 4, 4)
+
+MB <- rnorm(16, 90, 10)
+MB <- matrix(MB, 4, 4)
+
+rbind(MA, MB)
+
+MA[1:2, 1:2]
+
+MB[3:4, 3:4]
+
+cbind(MA[1:2, 1:2], MB[3:4, 3:4])
+
+```
+
+## Matris Isimlendirme
+
+```{r}
+
+#vektorlerden matris olusturma
+
+v1 <- c(3,4,6,8,5)
+v2 <- c(4,8,4,7,1)
+v3 <- c(2,2,5,4,6)
+v4 <- c(4,7,5,2,5)
+
+v <- cbind(v1,v2,v3,v4)
+
+#degiskenlerin isimleri
+colnames(v)
+
+colnames(v) <- c("bir","iki","uc","dort")
+row.names(v) <- c("bir","iki","uc","dort","bes")
+
+
+dev_m <- matrix(1:10000, ncol = 5, nrow = 500)
+
+paste("personel", 1:5, sep = ".")
+
+row.names(dev_m) <- c(paste("musteri_id", 1:500, sep = "_"))
+
+
+```
+
+# 3. Matris Eleman İslemleri
+
+## Matris Indeksi ve Elemanı Secimi
+
+```{r}
+
+M <- matrix(c(1,2,11,22,111,222,1111,22222), nrow = 4, ncol = 2, byrow = TRUE)
+
+colnames(M) <- c("bir","iki")
+rownames(M) <- c("rakam","onlar","yuzler","binler")
+
+#eleman secme
+
+M[1,1]
+
+M[3,1]
+
+M[2,2]
+
+#satir secme
+
+M[1,]
+
+M[1:2,]
+
+M[c(1,4),]
+
+
+#sutun secme
+
+M[ ,1]
+
+M[ ,1:2]
+
+
+m <- matrix(rnorm(25), 10, 10)
+
+m[1:5, 5:7]
+
+m[1:2, 9:10]
+
+colnames(m) <- c(paste("sutun", 1:10, sep = "_"))
+
+row.names(m) <- c(paste("satir", 1:10, sep = "_"))
+
+m[ , "sutun_7"]
+
+m["satir_7", ]
+
+dev <- matrix(1:1000, 50, 10)
+
+colnames(m) <- c(paste("degisken", 1:10, sep = "_"))
+
+
+#bu degiskenlerin her birisinin ortalamasının karekokunu, 
+#bu degiskenlerin isimleri olarak atamak istiyoruz, soru?
+
+m[, "degisken_1"]
+
+mean(m[, "degisken_1"])
+
+#round virgülden sonrasıdna kurtulmak icin
+as.character(round(sqrt(mean(m[, "degisken_1"]))))
+
+colnames(m)[1] <- as.character(round(sqrt(mean(m[, "degisken_1"]))))
+
+
+#veriyi ifade ettikten sonra datirea gore veya sutuna gore islemler yapıyor
+#apply(m, 2, mean) 
+
+colnames(m)<- as.character(round(sqrt(apply(m, 2, mean))))
+
+
+```
+
+## Kosullu Eleman Secimi
+```{r}
+
+m <- matrix(1:25, 5, 5) 
+
+m
+
+m[, 1] > 2
+
+m[m[, 1] > 2, 1]
+
+###
+
+mean(m[, 1]) 
+
+# m matrisinin icerisindeki 1. sutunun ortalamasından buyuk olma durumu
+
+m[ m[,1] > mean(m[, 1]), 1] 
+
+
+##
+# degerleri 4.sutun ortalamasından kucuk olan 2. sutunun degerleri nelerdir ?
+
+m[ ,4]
+
+mean(m[, 4])
+
+
+# sadece ikini sutunu istedigimiz icin sona tek 2 yaıyoruz
+
+m[ m[ ,2] <  mean(m[, 4]), 2 ] 
+
+```
+
+#4. Matris Hesaplamalar
+
+## Matematiksel Islemler
+
+```{r}
+
+A <- matrix(1:9, 3, 3)
+
+A
+
+B <- matrix(1:9, 3, 3)
+
+A + B
+
+A - B
+
+A * B
+
+A / B
+
+A[1, 2] + B[3, 3] - 9
+
+sum(A)
+
+mean(A)
+
+rowSums(A)
+
+colSums(A)
+
+rowMeans(A)
+
+colMeans(A)
+
+```
+
+## Apply Uygulamasi
+
+```{r}
+# A matrisinin butun satirlarinin ortalamasini aldi
+
+apply(A, 1, mean)
+
+apply(A, 2, max)
+
+apply(A, 2, function(x) mean(x))
+
+
+```
+
+## Lineer Cebir Islemleri
+
+```{r}
+
+A <- matrix(1:9, 3, 3)
+
+A
+
+diag(A) # kosegen elemanlarini getirdi
+
+sum(diag(A)) # iz alma
+
+I <- diag(c(1,1,1)) # birim matris
+
+matrix(c(2,1,3,1,2,1,3,1,0), 3, 3) # simetrik matris
+
+t(A) # tranpozu
+
+det(matrix(c(0,1,1,1), nrow = 2)) # determinant
+
+
+# MATRIS CARPIMI
+
+A %*% A # carpım
+
+solve(matrix(c(3,4,5,8), 2, 2)) # matrisin tersini alma
+
+
+
+```
+
+# 5. Matris Formunda Regresyon Uygulamasi
+
+```{r}
+
+library(readr)
+
+hsb <- read_table2("hsb.txt")
+
+hsb <- na.omit(hsb)
+
+# bagimli degiskeni alma islemi
+y <- matrix(hsb$write, ncol = 1)
+y
+
+
+# bagimsiz degiskeni alma islemi
+# bagimsiz degiskenleri ifade eden x matisinin icin de 1 vektoru olamsı gerekiyor
+# onu da belirttik
+
+x <- as.matrix(cbind(1, hsb$math, hsb$science, hsb$socst, hsb$female))
+
+
+#serbestlik derecesi icin
+
+n <- nrow(x)
+p <- ncol(x)
+
+
+# regresyon katsayilarini bulma islemi
+
+solve(t(x) %*% x) %*% t(x) %*% y
+
+
+
+summary(lm(write ~ math + science + socst + female, hsb))
+
+```
+
+
+
+
+
+
+
+
+
+

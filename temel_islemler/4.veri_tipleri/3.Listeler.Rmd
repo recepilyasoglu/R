@@ -1,0 +1,150 @@
+---
+title: "Listeler"
+author: "Recep Ilyasoglu"
+date: "16 12 2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# 1. Liste Nedir?
+
+```{r}
+
+```
+
+#2. Liste Bicimlendirme
+
+## Liste Olusturma
+
+```{r}
+
+liste_bir <- list("SuperNova", "Mesele Veriden Faydali Bigi Cikarmak", 1:10, 57, 1025.99)
+
+liste_iki <- list("neler", "neler", "hem de neler")
+
+
+```
+
+## Liste Birlestirme
+
+```{r}
+
+c(liste_bir,liste_iki)
+
+```
+
+## Liste Isimlendirme
+
+```{r}
+
+liste <- list(c("ali","gandan","bayisinden","cik"),
+     matrix(1:9, 3, 3), 
+     list("olabilir",1:10)
+     )
+
+names(liste) <- c("inovatif","matris","karisik") # sirasiyla isimler atadik
+
+```
+
+# 3. Liste Eleman Islemleri
+
+## Liste Indeksi ve Elemean Secimi
+
+```{r}
+
+liste <- list(c("ali","gandan","bayisinden","cik"),
+     matrix(1:9, 3, 3), 
+     list("olabilir",1:10)
+     )
+
+names(liste) <- c("inovatif","matris","karisik")
+
+liste[1]
+
+liste$matris
+
+
+```
+
+## Liste Eleman Degistirme
+
+```{r}
+
+liste <- list(c("ali","gandan","bayisinden","cik"),
+     matrix(1:9, 3, 3), 
+     list("olabilir",1:10)
+     )
+
+names(liste) <- c("inovatif","matris","karisik")
+
+#listeye eleman ekleme
+
+liste[4] <- "isik doktor ol ya da uzaya git"
+ 
+liste[4]
+
+# eleman silme
+
+liste[4] <- NULL
+
+liste[1] <- "Yeni Eleman"
+
+
+```
+
+## Listeyi Vektore Donusturme
+
+```{r}
+
+la <- list(1:15)
+
+lb <- list(10:14)
+
+a <- unlist(la) # unlist fonksiyonuyla vektore donusum, gormek icin de a ya atadık
+
+typeof(a)
+
+is.vector(a)
+
+b <- unlist(lb)
+
+is.vector(b)
+
+```
+
+# 4.Liste Hesaplamalar
+ 
+```{r}
+
+la*2 # burda hata aldık direk skler carpim yapilamaz
+
+unlist(la)*2# onun icin once vektore donusturduk sonra carptik
+
+liste$matris*2
+
+tolower(liste$inovatif) # butun harfleri kuculttuk
+
+```
+
+# 5.Liste Uzerinde Apply Uygulamasi
+
+```{r}
+
+
+l <- list(bir = 1:10, karesel = 1:10, kup = (1:10)^3)
+
+lapply(l, mean)
+
+lapply(l, sum)
+
+lapply(l, function(x) x^4) # listenin her bir elemaninin dorduncu kuvveti alindi
+
+
+
+# birinci argumanda belirttigim degerler adedince bi fonsiyon kullanmis olduk
+
+lapply(c(1,2,3), function(x) matrix(rnorm(9),3, 3))
+
+
+```

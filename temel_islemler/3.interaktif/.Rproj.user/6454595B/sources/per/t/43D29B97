@@ -1,0 +1,30 @@
+{
+    "id": "43D29B97",
+    "path": "~/R_Programlama_Calisma/temel_islemler/4.veri_tipleri/4.data_frame.Rmd",
+    "project_path": null,
+    "type": "r_markdown",
+    "hash": "1813155518",
+    "contents": "",
+    "dirty": false,
+    "created": 1639655738953.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "506,0",
+        "scrollLine": "498",
+        "docOutlineVisible": "0",
+        "docOutlineSize": "129",
+        "chunk_output_type": "console"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1639675740,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1639675740076,
+    "read_only": false,
+    "read_only_alternatives": []
+}

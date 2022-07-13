@@ -1,0 +1,29 @@
+{
+    "id": "FD4E6890",
+    "path": "~/R_Programlama_Calisma/temel_islemler/8.veri_gorsellestirme/veri_gorsellestirme.Rmd",
+    "project_path": "veri_gorsellestirme.Rmd",
+    "type": "r_markdown",
+    "hash": "4037785432",
+    "contents": "",
+    "dirty": false,
+    "created": 1647472540255.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "chunk_output_type": "console",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "459,14",
+        "scrollLine": "441",
+        "docOutlineVisible": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1639872782,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1639872782,
+    "read_only": false,
+    "read_only_alternatives": []
+}

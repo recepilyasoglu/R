@@ -1,0 +1,317 @@
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+# R'da Karakter ile Calismak
+
+# 1.Karakter Olusturmak
+
+## Bos Karakter
+
+```{r}
+
+bos_str <- " "   # bos karakter olusturma
+class(bos_str)
+
+ornek <- character(0)
+class(ornek)
+
+str(ornek)
+
+ornek[1] <- "bu birinci degerdir"
+ornek
+
+ornek[2] <- "bu ikinci degerdir"
+ornek
+
+is.character(ornek) # sorgulama
+
+as.character(9)  # cevirme
+
+```
+
+## paste() ve digerleri
+
+```{r}
+
+metin <- "bu bir karakterdir"
+
+metin
+
+karakter <- "bu da oyle"
+
+karakter
+
+c("karakter")
+
+
+paste(metin) # yazdirdik
+
+paste("bu bir karakterdir")
+
+paste("09052")
+
+paste(metin, karakter) # ikisini birlestirdi
+
+paste(metin, karakter, sep = " -- ") # sep argumaniyla ayirdik arasini
+
+
+# digerleri
+
+print("karakter", quote = FALSE) # quote ile tirnaklardan kurtulmus oluyoruz
+
+noquote("karakter") # bu da ayni sekilde
+
+adim <- "recep"
+
+noquote(adim) # gibi yukardakine ornek
+
+cat("selam")
+
+toString(99)
+
+a <- toString(c("karakter",99, FALSE, NA, sum(1:19)))
+
+noquote(a) # mesela yani
+
+```
+
+# 2.Temel Karakter Islemleri
+
+```{r}
+
+nchar("Recep Ilyasoglu") #karakterlerin uzunlugunu ifade ediyor, bosluklar dahil
+
+nchar(c("ali","velii","zekiii")) # ayri ayri uzunluklarini verdi
+
+length(c("ali","velii","zekiii")) # kac bileseni oldugunu veriyor
+
+length(c("Recep Ilyasoglu"))
+
+
+a <- "RECEP ILYASOGLU"
+
+b <- "recep ilyasoglu"
+
+tolower(a) # kucultuyor harfleri
+
+toupper(b) # buda tam tersi buyultur
+
+toupper(c("ali","velii","zekiii")) # ayni sekil
+
+
+# sirasiyla 
+#donusturulcek karakter, donusmesine istedigimiz karakter, ve metin vs.
+chartr("l","L","laleliden bir gul aldim")
+
+chartr("e","E",b) # gibi
+
+renkler <- colors()[1:6]  # 1 den 6 ya kadar renkleri aldik
+renkler
+
+abbreviate(renkler) # renkleri kisaltti bu fonksiyon
+
+a2 <- "recep"
+
+a3 <- "ilyasoglu"
+
+abbreviate(a2)
+
+abbreviate(a3)
+
+abbreviate(renkler, minlength = 5) # istedigimiz sayida olcak sekilde kisaltma 
+
+substr("recep", 2,5)# istedigimiz yerleri aliyoruz metinden
+
+
+x <- c("bir","iki","uc") # her bir kelimenin ikinci elemanlarina atama yapmak
+
+substr(x, 2,2) <- "#" # bu sekilde ikinci elemanalrina atama yaptik
+x
+
+
+# grep() 
+# aramak istedigimiz ifadelerin nerde olduklarini bize gosteriyor
+
+v <- c("bir","berber","bir","berbere","gelme","burasi","anca bana yeter")
+
+
+grep("bir", v) # aramak istedigimiz ifadelerin nerde olduklarini bize gosteriyor
+
+grep("gel", v)
+
+grep("er", v)
+
+
+#sub
+# buldugumuz kelimelere islem yapmak istiyorsak bu fonksiyon kullanilir
+
+v <- c("bir","berber","bir","berbere","gelme","burasi","anca bana yeter")
+
+# sairasiyla
+#donusturmek istedigimiz eleman, donusmesine istedigimiz eleman, ve nerden alcagi
+
+sub("bir", "iki", v) 
+
+
+```
+
+# 3.Vektorel Islemler
+
+```{r}
+
+
+sirket_a <- c("R","Sql","Python","SPSS","SAS")
+
+sirket_b <- c("Sql","R","Python","SPSS","Excel")
+
+sirket_c <- c("Sql","R","Python","SAS","SPSS")
+
+
+union(sirket_a, sirket_b) # birlestirme ayni olanlari yazmaz farkli olanlari ekler
+
+union(sirket_b, sirket_a) # daha once yazilan ifadeye gore getirir b ye gore yani
+
+
+#intersect()
+# ortak elemanlarin ciktisini sagliyor, kesisimini veriyor yani
+
+intersect(sirket_a, sirket_b)
+intersect(sirket_b, sirket_a)
+
+
+#setdiff()
+# iki kumededeki farkli elemanlari alir, kesisime girmeyenleri yani
+
+setdiff(sirket_a, sirket_b) # ilk argumana gore aldil a ya gore yani
+setdiff(sirket_b, sirket_a)
+
+setdiff(sirket_a, sirket_c) # kesismeyen eleman yok
+
+setdiff(sirket_b, sirket_c)
+setdiff(sirket_c, sirket_b)
+
+
+#setequal()
+# icerdigi elemanlarin birbirine denk olup olmadigini ifade eder
+
+setequal(sirket_a, sirket_b) # FALSE verdi yani denklik yok
+
+setequal(sirket_a, sirket_c) # TRUE verdi denklik var
+
+
+#identical()
+# net bir sekilde esitligi verir, mutlak esitligi verir, sirasi dahil esit olmali
+
+identical(sirket_a, sirket_b) # FALSE
+identical(sirket_a, sirket_c) # FALSE
+identical(sirket_a, sirket_a) # TRUE ayni cunku ikisi de
+```
+
+# 4.stringr Ile Karakter Islemleri
+
+## str_detect() eslesme saptama islemleri
+
+```{r}
+
+# eslesme fonksiyonu
+
+v <- c("bir","berber","bir","berbere","gelme","burasi","anca bana yeter")
+
+str_detect(v, "bir") # v de "bir" eslesmelerini bulmak istiyoruz TRUE-FALSE olarak
+
+
+str_which(v, "bir") # eslesmenin indexini veriyor, kacinci indexlerde eslesme var
+
+
+v <- c("bir bir","berber","bir","berbere","gelme","burasi","anca bana yeter")
+
+str_count(v, "bir") # kac tane var " 2 0 1 0 0 0" gibi 
+
+
+# konumu veriyor, ucun birinci karakterinde basliyor, ucun  ucuncu karakterinde bitiyor gibi
+str_locate(v, "bir")  
+
+str_locate_all(v, "bir") # daha detaylı hepsini liste halinde veriyor
+
+```
+
+## str_sub() karakter alt kume
+
+```{r}
+
+str_sub(v, 1,3)
+
+birseyler <- c("buyukveri", "makineogrenmesiveveri", "istatistikveveri", "borcamveveri")
+
+# vektorun her bir elemaninin sondan birinci ve dorduncu elemanini secti ve getirdi
+str_sub(birseyler, -4, -1) 
+
+str_sub(birseyler, 1, 4) # yani sekil bu sefer sondan degil bastan getirdi
+
+# mesela substring le getiremedik farkları bu
+substring(birseyler, -4, -1)
+```
+
+## str_lenght() karakter uzunluk
+
+```{r}
+
+nchar(birseyler) # uzunlugunu aldik
+
+str_length(birseyler) # bu da verdi
+
+# farklarina bakalim
+# faktor olusturalim
+a_b <- factor(c(1,1,1,0,0,0), labels = c("birinci faktor","ikinci faktor"))
+a_b
+
+nchar(a_b) # uzunlugunu almak istedik ama bu hata verdi
+
+str_length(a_b) # bu vermedi 
+
+```
+
+## str_replace() eslesme degistirme
+
+```{r}
+
+str_sub(v, 1,3)
+
+v <- c("bir bir","berber","bir","berbere","gelme","burasi","anca bana yeter")
+
+# degistirmek sitedigimiz neye degistirmek istedigimizgirdik
+str_replace(v, "bir", "--") # degistirme yaptik 
+
+# bu da yukardakinden farkli olarak gordugu butun bir leri degistirdi 
+# yukardaki il geleni degistirdi ama ayni kelimede ki ikincisini degistirmedi 
+str_replace_all(v, "bir", "--")
+
+str_to_lower(v)
+str_to_upper(v)
+str_to_title(v) # gibi gibi bunlarin ne yaptigi belli zaten
+
+```
+
+## str_c() birlestirme
+
+```{r}
+
+# birlestirme yaptik, _ gore de ayirdk veya bosluga gore de yapilabilir
+
+str_c("ali","ata","bakmayi","birak","millet","uzaya","gidiyor", sep = "_")
+
+
+```
+
+# 5.Uygulama
+
+```{r}
+
+
+
+
+```

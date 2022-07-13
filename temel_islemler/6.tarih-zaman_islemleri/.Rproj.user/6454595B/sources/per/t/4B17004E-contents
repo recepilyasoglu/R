@@ -1,0 +1,204 @@
+---
+title: "R' da Tarih/Zaman ile Calismak"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+
+today()
+
+now()
+
+
+```
+
+# 1. Tarih/Zaman Degiskenleri Ile Basa Cikmak
+
+## 1.1 Editor ile veri okuturken tarih degiskenleri ile basa cikmak
+
+```{r}
+
+df_bir <- data.frame( yas = c(10,11,30),
+                  boy = c(120, 140, 160),
+                  dogum = c("20100201","20110522","20090430")
+                )
+df_iki <- data.frame( yas = c(10,11,30),
+                  boy = c(120, 140, 160),
+                  dogum = c("2010_02_01","2011_05_22","2009_04_30")
+                )
+df_uc <- data.frame( yas = c(10,11,30),
+                  boy = c(120, 140, 160),
+                  dogum = c("01022010","22052011","30042009")
+                )
+
+df <- data.frame(df_bir, df_iki, df_uc) # tek bir dataframe halie getirdik
+
+
+library(readr)
+
+write.csv(df, "df.csv") # dosya olusturduk
+
+
+
+```
+
+## 1.2 String Ifadelerden Tarih/Zaman Olusturma
+
+```{r}
+
+## ymd()
+
+tarih <- "20180218"
+
+ymd(tarih) # date turune ceviriyor,
+
+
+df$dogum <- ymd(df$dogum) # df dogumdakini tarih turune cevirdik
+
+df$dogum
+
+
+##
+
+mdy("02242018") # siralama farkli geldi, yil-gun-ay seklinde
+
+##
+
+dmy("22012018") #gun-ay-yil olarak girdik ayni yani 
+
+
+ymd("2018_02_18") # ayracli girmemize ragmen algiladi
+
+
+
+mdy("February 18st, 1989") # yine anladi
+
+
+ymd_hms("20120101 16:00:11") #yil-ay-gun_saat-dakikasaniye 
+
+ymd_hm("20120101 16:10") # saniye kismini sifir olarak aldi
+
+ymd_h("20120101 16") # dakika ve saniyeyi sifir olarak aldi
+
+```
+
+## 1.2 Degiskenler Uzerinden Olusturma
+
+```{r}
+
+# satir satir tarih verileri
+
+flights %>% select(year, month, day, hour, minute)
+
+
+# bu degiskenlerin hepsini bir araya getirip tek degisken haline getiricez
+
+flights %>% 
+  select(year, month, day) %>%
+  mutate(tarih = make_date(year, month, day)) # tarih isimli degisken olusturduk
+
+
+flights %>% 
+  select(year, month, day, hour, minute) %>%
+  mutate(tarih = make_datetime(year, month, day)) # saat ve dakika da ekledik
+
+
+```
+
+# 2. Tarih Zaman Bilesenleri
+
+```{r}
+
+
+t_s <- ymd_hms("20100222 13:45:00")
+
+year(t_s) # yila eristik
+
+month(t_s) # aya eristik
+
+day(t_s) # gune eristi
+
+mday(t_s) # ayin hangi gunu
+
+yday(t_s) # yilin hangi gunu
+
+wday(t_s) # haftani hangi gunu
+
+
+hour(t_s) # saat'e eristik
+
+minute(t_s) # dakikaya eristik
+
+second(t_s) # saniye'ye eristik
+
+```
+
+
+# 3. Zaman Araliklari (time spans)
+
+## Saniye Cinsinden
+
+```{r}
+
+as.duration(1) # 1 saniye
+
+as.duration(16) # 16 saniye, girilen sayiyi saniye olarak veriyor
+
+dminutes(1) # 1 dakikayi saniye olarak verdi
+
+dminutes(100) # 100 dakikayi saniye olarak verdi
+
+dhours(10) # 10 saat kac saniye eder
+
+ddays(1) # 1 gunun saniye karsiligi
+
+dweeks(1) # 1 haftanin kac saniye ettigi
+
+dyears(4) # 4 yilin saniye karsiligi
+
+```
+
+## Gunluk kullanim
+
+```{r}
+
+# insanin okuyabilecegi sekilde
+
+seconds(15)
+
+minutes(45)
+
+hours(15)
+
+
+days(7)
+
+months(1:6)
+
+weeks(1) 
+
+years(1)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

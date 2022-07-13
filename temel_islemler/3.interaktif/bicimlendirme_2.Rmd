@@ -1,0 +1,71 @@
+---
+title: "R Markdown Bicimlendirme"
+author: "Recep Ilyasoglu"
+date: "15 12 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Numaralandirma
+
+Numaralandirma icin diyez isareti kullanilir. Bu isarette # en buyuk baslik budur. 
+
+Ornegin iki tane ## kullanildiginda bu ana basligin alt basligi olarak algilanir.
+
+## Bu numaralandirmanin alt basligidir
+
+## Numaralandirma ikini alt baslik
+
+
+# Italik yazma
+
+*bu bir italik yazidir*
+
+baska var mi ? var o da _budur_
+
+
+# Kalin yazi yazma
+
+**bu yazi kalindir**    __kalindir__
+
+
+# Ustunu Cizme
+
+~~ustun cizildi~~
+
+[Bu bir linktir](https://www.rstudio.com)
+
+# Tireleme
+
+--
+
+---
+
+...
+
+# Menuleme
+
+* menu 1
+* menu 2
+
+1. menu
+2. menu
+
+# Denklem ekleme
+
+$A = \pi*r^{2}$
+
+# Resim ekleme
+
+image: ![](tropikal.jpg)
+
+
+
+
+
+
+
+

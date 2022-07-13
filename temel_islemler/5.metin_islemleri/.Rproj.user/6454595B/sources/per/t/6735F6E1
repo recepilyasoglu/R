@@ -1,0 +1,29 @@
+{
+    "id": "6735F6E1",
+    "path": "~/R_Programlama_Calisma/temel_islemler/5.metin_islemleri/metin_islemleri.Rmd",
+    "project_path": "metin_islemleri.Rmd",
+    "type": "r_markdown",
+    "hash": "2802454280",
+    "contents": "",
+    "dirty": false,
+    "created": 1639744176590.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "chunk_output_type": "console",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "313,0",
+        "scrollLine": "285",
+        "docOutlineVisible": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1639762391,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1639762391241,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,275 @@
+---
+title: "Veri Tipleri"
+author: "Recep Ilyasoglu"
+date: "15 12 2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# 1.Vektor Nedir?
+
+Vektorler iki tiptir. Atomic ve List
+
+Her vektorun iki temel ozelligi vardir. tyypeof ve length
+
+4 tane arttirilmis vektor vardir. Bunlar:
+Faktorler, tarih-zaman, data frame ve tibbles
+
+
+## Onemli Atomik Vektorler
+
+```{r}
+c(TRUE, FALSE, NA)
+
+#ineteger ve numeric
+
+a <- 1
+
+a <- 1L
+
+#character
+
+a <- "veli"
+
+```
+
+# 2.Vektor Bicimlendirme
+
+##Vektor Olusturma
+
+```{r}
+
+a <- c(1,2,3,4)
+
+a <- c("a","a","a")
+
+a <- 1:10
+
+a <-1
+
+```
+
+##Vektor Birlestirme
+
+```{r}
+
+v <- 1:10
+
+y <- 2:11
+
+v + y
+
+z <- 1:5
+
+z + v
+
+c(v,z,y)
+
+rbind(v, y)
+
+cbind(v, y)
+
+```
+
+##Vektor Isımlendirme
+
+```{r}
+
+b <- c(x = 1, y = 2, z = 3)
+
+
+
+``` 
+### Vektor Tipleri
+```{r}
+is_logical(a)
+is_integer()
+is_numeric()
+is_character()
+is_atomic(
+is_list()
+is_vector()
+
+```
+
+### Vektorler Arasi Donusum
+
+```{r}
+
+tf <- c("T","F") 
+
+tf <- as.logical(tf)
+
+a <- 99
+
+a <- as.character(a)
+
+a <- 99
+
+a <- as.integer(a)
+
+a <- c(1,2,"a")
+
+a <- c(10,20,30,40,50,10,10,20)
+
+a <- factor(a)
+
+as.numeric(as.character(a)) # factorden numerice cevirmek icin boyle kullanilir
+
+
+```
+
+# 3. Vektor Eleman Islemleri
+
+## Vektor Indeksi ve Eleman Secimi
+```{r}
+
+vektor <- rnorm(30) # mormal dagilimli bi kitleden 30 tane sayi cekelim
+
+vektor[]
+
+```
+
+## Birden fazla eleman secmek
+
+```{r}
+
+vektor[c(2,3,4)]
+
+
+```
+
+## Seri Olarak Eleman Secme
+
+```{r}
+
+vektor[1:10]
+
+vektor[20:30]
+
+```
+
+## Indeks Ile Deger Atamak
+
+```{r}
+
+vektor[1] <- 1
+
+```
+
+## Toplu Deger Atamak
+
+```{r}
+
+vektor[c(2,3,4)] <- c(2,3,4)
+
+vektor[c(1:10)] <- 0
+
+```
+
+##Isımlendirilmis Vektorlerden Eleman Secmek
+
+```{r}
+
+v <- c(x = 1, y = 2, z = 3)
+
+v["x"]
+
+v["y"]
+
+v[c("x", "y")]
+
+```
+
+## Kosullu Eleman Secimi
+
+```{r}
+
+vektor
+
+vektor[vektor > 0] # 0 dan buyuk elemanlari getir
+
+vektor[vektor >= 0]
+
+vektor[vektor > 0 & vektor < 1]
+
+```
+
+## Vektor Elemanlarinin Silinmesi
+
+```{r}
+
+v <- 1:10
+
+v <- NULL  #icini bosaltma
+
+v <- v[2:10]
+
+```
+
+
+# 4.Vektorel Hesaplamalar 
+
+```{r}
+
+v <- 1:10
+
+y <- 2:11
+
+v + y
+
+v - y
+
+v * y
+
+v / y
+
+sqrt(v)
+
+sum(v)
+
+mean(v)
+
+median(v)
+
+v^2
+v^3
+
+```
+
+## Istatistiksel Islemler
+
+```{r}
+
+min(v)
+
+max(v)
+
+cumsum(v)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

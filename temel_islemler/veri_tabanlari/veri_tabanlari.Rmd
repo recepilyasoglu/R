@@ -1,0 +1,60 @@
+---
+title: "R ile Veri Tabanlari"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+# 1. Veri Tabanlari Ile Calisma
+
+## 1.1 Veri Tabanina Baglanma
+
+```{r}
+
+
+library(DBI)
+library(dplyr)
+library(dbplyr)
+library(ggplot2)
+
+
+
+```
+
+# 2. Buyuk Veri Ile Calismak (spark)
+
+```{r}
+
+
+install.packages("sparklyr")
+library(sparklyr)
+
+library(nycflights13)
+
+# local baglanti ayarladik
+sc <- spark_connect(master = "local")
+
+# local.R icindeki dataframe'i sparka tasıma islemi
+copy_to(sc, nycflights13::flights, "flights_spark")
+
+# buyuk veri ortamindaki verileri gormek icin
+src_tbls(sc)
+
+f_tbl <- copy_to(sc, nycflights13::flights, "flights_spark", overwrite = TRUE) # degiskene atadik
+
+f_tbl %>% select(1:3) # ilk uc degiskeni aldik
+
+# havayolu sirktelerine gore gecikme surelerinin ortalamalari
+f_tbl %>% 
+  group_by(carrier) %>% 
+  summarise(n = n(),
+          ort = mean(dep_delay))
+
+# local R'ımıza cektik, collect()'le
+g <- f_tbl %>% 
+  group_by(carrier) %>% 
+  summarise(n = n(),
+          ort = mean(dep_delay)) %>%
+  collect() 
+
+```

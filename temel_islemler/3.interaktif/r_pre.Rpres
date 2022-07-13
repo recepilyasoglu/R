@@ -1,0 +1,29 @@
+R ile Sunum Dosyasi Hazirlama
+========================================================
+author: Recep Ilyasoglu
+date: 
+autosize: true
+
+Giris
+========================================================
+
+- R ile Programlama
+- Kesifci Veri Analizi ve Veri Gorsellestirme
+- Uygulamali Istatistik
+
+
+R ile Programlama Bolumu
+========================================================
+
+Bu bolum de birseyler anlatilacaktir.
+
+```{r}
+summary(cars)
+```
+
+Uygulamali Istatistik
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```

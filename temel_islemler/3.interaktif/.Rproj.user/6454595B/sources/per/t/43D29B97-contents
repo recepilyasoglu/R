@@ -1,0 +1,530 @@
+---
+title: "Data Frame"
+author: "Recep Ilyasoglu"
+date: "16 12 2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# 1.Data Frame Nedir ?
+
+```{r}
+
+
+
+```
+
+
+# 2.DataFrame Bicimlendirme 
+
+```{r}
+
+
+
+```
+
+## Dataframe Olusturma
+
+```{r}
+
+df <- data.frame(
+  
+  magaza_no = c(1:5),
+  semt = c("Mecidiyekoy","BesikTaj","Kadikoy","Bagcilar","Gop"),
+  ortalama_kazanc = c(60, 50, 61, 72, 89),
+  stringsAsFactors = FALSE
+)
+
+str(df)
+
+summary(df) # ozet istatistikleri verir
+
+nrow(df) # kac satir var
+
+ncol(df) # kac sutun
+
+dim(df) # boyutunu verir
+
+```
+ 
+## Dataframe Birlestirme
+
+```{r}
+
+df <- data.frame(
+  
+  magaza_no = c(1:5),
+  semt = c("Mecidiyekoy","BesikTaj","Kadikoy","Bagcilar","Gop"),
+  ortalama_kazanc = c(60, 50, 61, 72, 89),
+  stringsAsFactors = FALSE
+)
+
+df2 <- data.frame(
+  
+  magaza_no = c(1:5),
+  gecmis = c(2,4,5,3,6),
+  personel_sayisi = c(23,43,21,11,15)
+  
+)
+
+merge(df, df2) # dataframe leri bi,rlsetirmek icin kullanilan fonksiyon
+
+merge(df, df2, by = "magaza_no") # magaza_no ya gore birlestirdi
+
+cbind(df, df2) # yan yana birlestirdik
+
+rbind(df, df2) # burda mesela hata isimlerinin bire bir ayni olmasi gerekiyor cunku
+
+rbind(df, df) # bunlarin isimleri ayni oldugu icin alt alta birlestirdi
+
+
+
+```
+
+## Yeni Degisken Ekleme/Silme
+
+```{r df_all} 
+      # chunk isimlendirme
+
+
+df_all <- merge(df, df2, by = "magaza_no")
+
+df_all  # artik elimizde tek bir veri seti var
+
+
+df_all$ort_mus <- c(12,34,21,12,45) # ort_mus diye yeni eleman ekledik
+
+df_all$urun_turu <- c("ayakkabi","canta","kazak","tisort","ayakkabi")
+
+df_all$gereksiz <- c("bos")
+
+df_all$gereksiz <- NULL  # gereksiz degiskeni sildik
+ 
+
+# var olan degiskenleri kullanarak yenide giskken olusturmak
+
+df_all$per_bas_kazanc <- df_all$ortalama_kazanc / df_all$personel_sayisi
+
+
+```
+
+## Satir Ekleme/Silme
+
+```{r}
+
+df
+
+rbind(df, c(6, "Beyoglu", 99)) # satir ekleme, sirasiyla degerler verdik
+
+df <- df[-6] #altinci degeri atti, kolay oldan silme denebilir, onu da df atadik
+
+
+```
+
+## Dataframe Isimlendirme
+
+```{r}
+
+df # daha az boyutta oldugu icin bunun üzerinden islemler yapiyoruz
+
+colnames(df) <- c("n", "s", "k")
+
+row.names(df) <- c("bir","iki","uc","dort","bes")
+
+
+# yazilardaki bozuklugu duzeltmek icin kucuk yaptik harfleri onu da s ye atadik
+
+df$s <- tolower(df$s) 
+
+df <- df[, c("n","k")] # semt degiskenini disarda birakmis olduk
+
+df
+
+
+
+
+#bir degiskenimin degerlerini, dataframe'in satir isimleri olarak atamak istersek
+
+df_all
+
+
+library(dplyr)
+
+
+# %>% -> kendisinden once gelen ifadeyi kendisinden sonra gelen ifadenin girdisi olarak aliyor, 
+#yani bir ciktiyi bir diger fonksiyonun girdisi olarak kabul ediyor
+
+
+df_all <- df_all %>% remove_rownames %>% column_to_rownames(var="semt")
+
+
+```
+
+## Liste ya da Matrisleri Dataframe'e Cevirme
+
+```{r}
+
+m <- matrix(1:9, 3, 3)
+
+df <- as.data.frame(m)
+
+
+sayi <- c(1,2,3)
+harf <- c("a","b","c")
+log <- c(TRUE,FALSE,TRUE)
+# onun icin burda tanılamalar yaptik 3x3 icin
+
+# listeye cevirmek icin listeyi olustuan elemanlarin boyutlarinin ayni olmasi lazim
+# data frame'in kosullarindan
+
+liste <- list(sayi, harf, log)
+
+df <- as.data.frame(liste)
+
+
+```
+
+## Dataframe Degisken Turlerini Degistirme
+
+```{r}
+
+
+str(df_all)
+
+
+# urun_turu degiskenin tipini degistirdik
+
+df_all$urun_turu <- factor(df_all$urun_turu)
+
+df_all$ort_mus <- as.integer(df_all$ort_mus)
+
+# !!!!!!!! ONEMLI !!!!!!!
+#! eger bir modelleme calismasi yapmak istiyorsak ve bu modelin icerisinde
+# bir kategorik degiskenin kategorik olarak yer almasini istiyorsak bunu
+# R'a ifade etmemiz gerekiyor
+# R' a ifade etmenin yolu da o degiskeni factor degiskenine cevirmektir
+
+df_all$semt <- factor(df_all$semt) # factor'e cevirdik
+
+# sirali factor'e cevirdik
+df_all$semt <- factor(df_all$semt, ordered = TRUE) 
+
+
+```
+
+# 3.Dataframe Eleman Islemleri
+
+```{r}
+
+
+```
+
+## Dataframe Degisken Secimi
+
+```{r}
+
+library(ggplot2)
+
+mpg
+
+summary(mpg)
+
+str(mpg)
+
+
+mpg$manufacturer
+
+mpg$model
+
+
+# attach(mpg)  # bunu yazdigmizda mpg nin icidneki degiskenlere erisebiliyoruz asagidaki gibi
+
+# model  # ama yanlis kullanim kullanmaktan kacinmak gerekir
+
+# attach(mtcars)
+
+# mpg$model  # hata aldik mesela
+
+detach(mpg) # attach fonksiyonun geri alma islemi 
+
+detach(mtcars) # bunda da geri aldik 
+
+mpg$model # simdi sikintisiz geliyor
+
+
+# birden fazla degisken secimi
+data.frame(mpg$manufacturer , mpg$model) 
+# ayrica bu iki deiskenle bir veri seti olusturduk
+
+head(data.frame(mpg$manufacturer , mpg$model)) # ilk 6'yi getirdi
+
+# yukardakini 10' a genislettik
+# head(data.frame(mpg$manufacturer , mpg$model), 10) 
+
+
+degiskenler <- c("model","year","cyl")
+ 
+data <- mpg[degiskenler] # mpg den degiskenleri alip dataya attik
+
+
+
+```
+
+## Dataframe Indeksi ve Eleman
+
+```{r}
+
+
+mpg[1:10]
+
+mpg[1,1]
+
+# ureticisi Audi olan markalari ayni zamanda mpg veri setinin icersisinde silindir degiskeni 6 olanlari getir
+#1999 yilindan buyuk olanlar
+# model ve drv yi getir
+
+mpg[ mpg$manufacturer == "audi" & mpg$cyl == "6" & mpg$year > 1999, c("model","drv")]
+
+
+
+```
+
+## Dataframe Eleman Degistirme
+
+```{r}
+
+mpg[1,1] <- "bmw"
+
+
+```
+
+## Dataframe Siralama
+
+```{r}
+
+# semt isimlerine gore siralama
+# alfabetik siralamaya gore de 
+df_all[order(df_all$semt, decreasing = TRUE)]
+
+# buyuktem kucuge siralanacak sekilde getirdi
+df_all[order(df_all$gecmis, decreasing = TRUE),]
+
+
+
+```
+
+# 4.Dataframe Hesaplamalar
+
+```{r}
+
+df_all$ortalama_kazanc*10
+
+
+```
+
+# 5.Apply Ailesi
+
+```{r}
+
+
+```
+
+## apply()
+
+```{r}
+
+# matris olusturup satir elemanlarinin ortalamasini aldik
+apply(matrix(1:9, 3, 3), 1, mean)
+
+
+fap <- mpg[, c("displ","cyl","cty")]
+
+apply(fap, 1, sum)
+
+#sutun elemanlarini
+apply(fap, 2, sum)
+
+
+```
+
+```{r}
+
+sum(mpg$displ)
+
+sum(mpg$cyl)
+
+sum(fap[1,]) # birinci satirin toplamini
+
+# teker teker ugrasmak gerekiyor boyle yazarak
+
+```
+
+```{r}
+
+# dongu yazarak deneyelim o zaman 
+
+bos <- NULL
+
+for (i in 1:nrow(fap)) {
+  
+  a <- sum(fap[i,])
+  bos <- rbind(bos,a)
+  
+} # calisti ihtiyacimizi giderdi okey
+
+
+source("for.R") # for.R dosyasin de yazili olani calistirir ben calistiramadim 
+
+```
+
+```{r}
+
+# mikrobenchmark R da yazilan kodlari döngüleri vs.. test etmek, performanslarini karsilastirmak icin kullanilan fonksiyon
+
+#microbenchmark(source("for.R"), apply(fap, 1, sum), times = 10) 
+# burda kiyaslama yapildi
+
+
+# sacma sapan neden anlatti anlamadim da zaten calismadi da 
+
+```
+
+
+## lapply()
+
+```{r}
+
+l <- list(a = rnorm(90),
+     b = rbeta(10,1,2),
+     c = 1:5000
+     )
+
+lapply(l, mean)
+
+```
+
+## sapply()
+
+```{r}
+
+# listenin degerlerini vektore donusturen fonksiyon
+
+l <- list(a = rnorm(90),
+     b = rbeta(10,1,2),
+     c = 1:5000
+     )
+k <- sapply(l, mean)
+
+```
+
+## vapply()
+
+```{r}
+# 1 de 10' a kadar olan asyilarini karelerinialdik ama ciktinin double olarak aldik
+
+vapply(1:10, sqrt, double(1))
+
+
+```
+
+## tapply()
+
+```{r}
+
+str(mpg)
+
+# bir vektorler'in icerisindeki kategorik degiskenlerin kiriliminda betimlemeler tyapilmasini sagliyor, 
+#kategorik degiskenlerin kiriliminda fonksiyonlarin calistirilabilmesini sagliyor
+
+tapply(mpg$cyl, mpg$class, mean)
+
+#kisaca kategorik degiskenlerin uzerinde fonksiyon uygulanamsi yardimi sagliyor
+
+```
+
+## by()
+
+```{r}
+
+# daha fazla kirim istedigimizde kullanilacak fonksiyon
+
+
+by(mpg[, c("displ","cty","hwy")], mpg$cyl, colMeans)
+# silindir degerlerini diger bazi surekli degiskenler bazinda ifade ediyor
+
+```
+
+# 6.Map Ailesi
+
+```{r}
+
+library(purrr)
+
+mapp <- mpg[, c("displ","cty","hwy")]
+
+map_dbl(mapp, mean)
+
+```
+
+
+```{r}
+
+library(dplyr)
+
+# mtcars versi setini silindirler bazinda faktorlestirip 3 farkli veri setine bolduk
+# bolmus oldugumuz bu uc farkli veri veri setine lineer regresyon modeli uyguladik
+# lineer regresyon modelinin sonuclarini aldik ve alinan sonuclardan r kare degerlerini karsimiza koyduk
+
+mtcars %>% 
+  split(.$cyl) %>%
+  map(~ lm(mpg ~ wt, data = .)) %>%
+  map(summary) %>%
+  map_dbl("r.squared")
+
+
+```
+
+
+# 7.Modern Dataframe:Tibble
+
+```{r}
+
+# Normal data frame'lerin hiz olarak optimize edilmis hali modern hali
+
+```
+
+## Birinci Fark: Yazdirma Sekli
+
+```{r}
+
+data.frame(
+  
+  a = 1:10000,
+  b = 1:10000
+  
+)
+
+
+tibble(
+  
+  a = 1:10000,
+  b = 1:10000
+  
+)
+
+#farklari var, tibble az ve öz calisiyor
+
+as_tibble(iris) # veri setini tibble'a cevirme
+
+```
+
+## Ikinci Fark: Altkume Islemleri
+
+```{r}
+
+
+
+
+
+```

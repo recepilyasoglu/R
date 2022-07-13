@@ -1,0 +1,474 @@
+---
+title: "R ile Programlamaya Giris"
+output: html_notebook
+---
+
+# 1.Temel islemler
+
+## Operatorler
+
+### Atama Operatorleri
+```{r}
+#<-
+#=
+#<<-
+
+a <- 10
+
+b <- 15
+
+a = 19
+
+rnorm(10, mean = 9, sd = 2)
+
+```
+
+### Aritmetik Operatorler
+```{r}
+
+
+# + - * /  ^
+
+10 + 10 + 20
+
+a <- 90*2
+
+a * b 
+
+b ^ 2
+
+```
+
+### Mantiksal Operatorler
+```{r}
+
+40 < 10 
+
+veri <- 1:10
+
+veri[veri > 5 ] # verinin içerisinde 5 ten büyük olan değerler
+
+veri[veri < 5 ]
+
+veri[ veri == 3 ]
+
+veri[veri != 5 ] # 5 e eşit olmayan sayıları getirme
+
+veri[veri > 1 & veri < 3]
+
+veri[veri > 1 | veri < 3]
+
+```
+
+## Matematiksel Islemler
+```{r}
+
+a <- sqrt(9)
+b <- abs(-19)
+
+a * b
+
+c <- a*b
+
+(c <- a*b) # parantez atıp kapadığımızda ekrana hemen yazıyor
+
+(d <- a*b)
+
+log(9)
+
+log2(9)
+
+exp(3)
+
+exp(5)
+
+```
+
+
+## Temel Fonksiyonlar
+```{r}
+sessionInfo()
+
+getwd()
+
+dir()
+
+list.files()
+
+file.exists("veriler")# döngünün içerisinde bu dosya var mı sorusuna false veya true cevap veriyor 
+
+dir.create("veriler")# dosya oluşturma
+
+object.size("2.2_fonksiyonlar.R") # dosyanın boyutunu verir
+
+ls()# oluşturulan değişkenlerin isimlerini
+
+rm(a)# silme işlemi
+
+installed.packages()# yüklü olan kütüphaneleri görmek için kullanılır
+
+search() # yüklenmiş çağrılmıış kütüphaneler
+
+library()# yüklü olan kütüphaneyi çağırmak için
+
+data()# R daki veri setleri
+
+options(digits = 5)# virgülden sonra kaç basamağı yazın
+
+print(3.111111111111111111)# burda da sayıyı tanımladık görmek açısından
+
+head()
+
+```
+
+
+## Veri Tipleri
+```{r}
+## atomic vector #yani tek degerden olusan vectorler
+
+# numeric
+
+a <- 1
+
+typeof(a)
+
+is.vector(a) #vektor mu ?
+
+# integer
+
+b <- 1L
+
+typeof(b)
+
+is.vector(b)
+
+# character
+
+c <- "bu bir karakterdir"
+
+is.vector(c)
+
+# logical
+
+e <- 5
+f <- 1
+
+log <- e < f
+
+typeof(log)
+
+is.vector(log)
+
+# complex
+
+z <- 1 + 2i
+
+typeof(z)
+
+# vektor
+
+a <- 1:10
+
+a <- 19:45
+
+is.vector(a)
+
+
+a <- c("a","b","c","d")
+
+b <- c(1,2,3,4,5,6)
+
+is.vector(b)
+
+
+# liste
+
+list(111, "merhaba", 1+2i)
+
+
+# matris
+
+m <- matrix(1:9, nrow = 3, ncol = 3)
+
+m
+
+# data frame
+
+data.frame(
+  
+  isim = c("recep","ilyasoglu","bursa"),
+  yas = c(22,10,1998)
+  
+)
+
+```
+
+
+# 2.Fonksiyonlar
+```{r}
+
+df <- data.frame(
+  
+  
+  a = c(1:10),
+  b = c(2:11),
+  c = c(4:13),
+  d = c(9:18)
+  
+)
+
+# her bir degiskeni standartlastırmak istiyoruz.
+
+#(X - M) / SIGMA/KOK N
+
+
+#$ isareti df den eleman secmeye yarıyor data frame den yani
+# standart sapma icin sd fonksiyonu kullanılıyor
+
+( df$a - mean(df$a)) / sd(df$a) / sqrt(length(df$a))  
+
+( df$b - mean(df$b)) / sd(df$b) / sqrt(length(df$b))  
+
+( df$c - mean(df$c)) / sd(df$c) / sqrt(length(df$c))  
+
+( df$d - mean(df$d)) / sd(df$d) / sqrt(length(df$d))  
+
+
+olcek <- function(x){
+  
+  ( x - mean(x)) / sd(x) / sqrt(length(x))  
+  
+  
+}
+
+olcek(df$d)
+
+
+kare_fonksiyonu <- function(x,y) {
+  
+  a <- x^2
+  
+  y*a
+  
+}
+
+kare_fonksiyonu(4, 3)
+
+```
+
+
+# 3.Kontrol ve Dongu Ifadeleri
+
+## if-else
+```{r}
+
+
+sayi <- 8
+
+if(sayi > 9) {
+  
+  print("sayi 9 dan buyuktur")
+  
+} else {
+  
+  sayi * 1
+  
+}
+
+## FONKSIYON ICINDE KONTROL IFADESI
+
+df <- data.frame(
+  
+  
+  a = c(1:10),
+  b = c(2:11),
+  c = c(4:13),
+  d = c(9:18),
+  f = c("a","b","c","d","c","d","d","a","a","l")
+  
+)
+
+is.numeric(a)
+
+olcek <- function(x, n = 10){
+  
+  if(is.numeric(x) == FALSE  ){
+    
+    message("!!! LUTFEN NUMERIC BIR DEGISKEN GIRINIZ !!!")
+    
+  }
+
+  (  - mean(x)) / sd(x) / sqrt(n)  
+  
+}
+
+olcek(df$a)
+
+
+## IC ICE KOSUL
+
+a <- 100
+
+if(is.character(a) == TRUE) {
+  
+  paste(a, "Ok karakter")
+  
+} else if (is.Date(a) == TRUE) {
+  
+  paste(a, "Tarih bu")
+  
+} else if (is.integer(a) == TRUE){
+  
+  paste(a, "Sayi Integer")
+  
+} else if (is.numeric(a) == TRUE) {
+  
+  paste(a, "Sayi Numeric")
+  
+}
+
+a <- as.Date("1998-10-22")
+
+```
+
+## for
+```{r}
+
+for(i in 1:5) print(1:i)
+
+
+##vektor ıcerısınde dondurme
+
+a <- c(1,3,5,7,2)
+
+for (i in a) {
+  
+  print(i^2)
+  
+}
+
+## elimdeki sayilarin alfabede ki karşılıkları neler?
+
+sayilar <- c(14,11,10,16,25,26)
+
+# letters -> alfabedeki tüm harfler geldi ingilizce olarak tabiki
+
+letters[26]
+
+for (i in sayilar) {
+  
+  sayac <- paste(i, letters[i]) 
+  print(sayac)
+  
+}
+
+```
+
+## while ve digerleri
+```{r}
+
+
+## while
+
+i <- 1
+
+while (i < 6) { # 6 dan küçük olduğu sürece
+  
+  print(i)
+  
+  i = i + 1
+  
+}
+
+# break
+
+x <- 1:10
+
+for(i in x){
+  
+  if(i == 7){
+    
+    break
+      
+  }
+  
+  print(i)
+  
+}
+
+# next
+
+x <- 1:10
+
+for(i in x){
+  
+  if(i == 7){
+    
+    next  # 7 yi atla
+    
+  }
+  
+  print(i)
+  
+}
+
+```
+
+
+# 4.Veri Okuma
+```{r}
+# ------ 1. R icerisindeki veri setleri
+
+data()
+
+veri <- AirPassengers
+
+e <- euro
+
+data(package = .packages(all.available = TRUE))
+
+# https://veribilimi.co/data_sets
+
+
+
+## -------- 2.sik kullanilan basliklar
+
+duz_metin # txt
+
+ornekcsv # csv
+
+ornekx # excel
+
+
+# txt icin
+read.table("C:/Users/reco1/OneDrive/Documents/R_Programlama_Calisma/temel_islemler/2.temel_islemler/veri_okuma/duz_metin.txt")   
+
+read.delim("C:/Users/reco1/OneDrive/Documents/R_Programlama_Calisma/temel_islemler/2.temel_islemler/veri_okuma/ornekcsv.csv", header = TRUE, sep = ";")                 
+
+read_excel("C:/Users/reco1/OneDrive/Documents/R_Programlama_Calisma/temel_islemler/2.temel_islemler/veri_okuma/ornekx.xlsx")
+
+read_dta("C:/Users/reco1/OneDrive/Documents/R_Programlama_Calisma/temel_islemler/2.temel_islemler/veri_okuma/oil.dta")
+
+
+# --------- 3. kullanici giris
+
+a <- scan() # değer atama
+
+b <- readline() # string ifadeleri girdi olarak kullanmamıza yardımcı oluyor
+
+```
+
+# 5. Kod Yazim Stili
+
+>GENEL NOTLAR
+
+Isımlendirmeler mumkun oldugu kadar kısa ve anlasilir olmalidir.
+Isımlendirmeler yapilirken var olan isimlendirmelerden farkli isimler kullanilmali.
+Isimlendirmeler de kucuk harfler edilmeli.
+
+Operatorlerin etrafinda boluklar olmali.
+Suslu parantez kullanimi tercih edilmeli ve kod yazimina alt satirdan baslanmali.
+Satir uzunlugu kod okunabilirligi acisindan 80 karakteri gecmemelidir.
+Girinti icin iki boluk kullanilmali.
+
+
